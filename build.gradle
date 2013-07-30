@@ -1,0 +1,31 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath 'com.android.tools.build:gradle:0.4.2'
+	}
+}
+
+/**
+ * Task to generate a gradle wrapper.
+ */
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.6'
+}
+
+apply plugin: 'android-library'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'com.nineoldandroids:library:2.4.0'
+}
+
+android {
+	compileSdkVersion 17
+	buildToolsVersion '17'
+}
