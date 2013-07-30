@@ -25,6 +25,7 @@ local.properties
 *.iws
 .idea/
 .gradle/
+build/
 local.properties
 */build/
 *~
