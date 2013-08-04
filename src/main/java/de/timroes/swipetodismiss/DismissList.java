@@ -275,11 +275,22 @@ public class DismissList {
             changePopupText();
             changeButtonLabel();
 
+            // Calculate bottom offset
+            int[] listPosition = new int[2];
+            int rootBottom = getBottom(mListView.getRootView(), listPosition);
+            int listBottom = getBottom(mListView, listPosition);
+            int offset = rootBottom - listBottom;
+
             // Show undo popup
             mUndoPopup.showAtLocation(mListView,
                     Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM,
-                    0, (int) (mDensity * 15));
+                    0, (int) (mDensity * 15) + offset);
         }
+    }
+
+    private static int getBottom(View view, int[] point) {
+        view.getLocationInWindow(point);
+        return point[1] + view.getHeight();
     }
 
     /**
@@ -355,7 +366,7 @@ public class DismissList {
      * Hide the popup after the configured delay, unless interrupted
      * by another event using {@link #interruptHidePopup()}.
      */
-    protected void hidePopup() {
+    public void hidePopup() {
         if (mUndoPopup.isShowing()) {
             // Send a delayed message to hide popup
             mHandler.sendMessageDelayed(mHandler.obtainMessage(mDelayedMsgId),
@@ -367,7 +378,7 @@ public class DismissList {
      * Interrupt the popup hiding, causing the popup to stay opened
      * until {@link #hidePopup()} is called again.
      */
-    protected void interruptHidePopup() {
+    public void interruptHidePopup() {
         ++mDelayedMsgId;
     }
 

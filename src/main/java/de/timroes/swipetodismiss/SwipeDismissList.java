@@ -116,18 +116,6 @@ public class SwipeDismissList extends DismissList implements View.OnTouchListene
      * @param mode     The mode this list handles multiple undos.
      */
     public SwipeDismissList(AbsListView listView, OnDismissCallback callback, UndoMode mode) {
-        this(listView, callback, mode, true);
-    }
-
-    /**
-     * Constructs a new swipe-to-dismiss touch listener for the given list view.
-     *
-     * @param listView The list view whose items should be dismissable.
-     * @param callback The callback to trigger when the user has indicated that
-     *                 she would like to dismiss one or more list items.
-     * @param mode     The mode this list handles multiple undos.
-     */
-    public SwipeDismissList(AbsListView listView, OnDismissCallback callback, UndoMode mode, boolean bindListeners) {
         super(listView, callback, mode);
 
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
@@ -429,35 +417,6 @@ public class SwipeDismissList extends DismissList implements View.OnTouchListene
 
         mPendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
         animator.start();
-    }
-
-    /**
-     * Changes text in the popup depending on stored undos.
-     */
-    private void changePopupText() {
-        String msg = "";
-        if (mUndoActions.size() > 1 && mDeleteMultipleString != null) {
-            msg = String.format(mDeleteMultipleString, mUndoActions.size());
-        } else if (mUndoActions.size() >= 1) {
-            // Set title from single undoable or when no multiple deletion string
-            // is given
-            if (mUndoActions.get(mUndoActions.size() - 1).getTitle() != null) {
-                msg = mUndoActions.get(mUndoActions.size() - 1).getTitle();
-            } else {
-                msg = mDeleteString;
-            }
-        }
-        mUndoText.setText(msg);
-    }
-
-    private void changeButtonLabel() {
-        String msg;
-        if (mUndoActions.size() > 1 && mMode == UndoMode.COLLAPSED_UNDO) {
-            msg = mListView.getResources().getString(R.string.undoall);
-        } else {
-            msg = mListView.getResources().getString(R.string.undo);
-        }
-        mUndoButton.setText(msg);
     }
 
     /**
