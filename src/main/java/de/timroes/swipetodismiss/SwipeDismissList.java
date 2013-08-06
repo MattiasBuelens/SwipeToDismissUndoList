@@ -15,6 +15,7 @@
  */
 package de.timroes.swipetodismiss;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.MotionEvent;
@@ -329,6 +330,7 @@ public class SwipeDismissList extends DismissList implements View.OnTouchListene
      * @param deltaX The delta of x coordinate of the swipe.
      * @return Whether the delta of a swipe is in the right direction.
      */
+    @SuppressLint("NewApi")
     private boolean isDirectionValid(float deltaX) {
 
         int rtlSign = 1;
